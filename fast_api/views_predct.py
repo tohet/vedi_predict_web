@@ -11,8 +11,6 @@ from nltk.corpus import stopwords
 from sklearn.linear_model import Lasso
 from sklearn.preprocessing import StandardScaler
 
-# parsing the tokens
-
 class ModelHolder:
     def __init__(self, data_path, y_name):
         data = pd.read_csv(data_path)
@@ -24,7 +22,7 @@ class ModelHolder:
 
         self.linreg = Lasso(alpha = 5, tol = 100).fit(X, y)
     
-    # sets text priorities based on views
+    # sets text priorities based on views - unused
     def classify_by_views(self, views):
         if views > 100000:
             return 0
@@ -112,10 +110,13 @@ class InputManager:
 
         return tokens
 
+# a class to store predictions
 class PredScore():
     def __init__(self, score):
         self.score = score
         self.label = ''
+
+    # sets labels
     def update(self, new_score):
         self.score = new_score
         if new_score >= 15000:
@@ -130,14 +131,3 @@ class PredScore():
             self.label = 'Нишевой'
         elif new_score < 13000:
             self.label = 'Провал'
-
-# creating new entry 
-# equating parsed tokens to columns - if match - set to 1
-
-y_n = "открытия материала"
-data_path = "ved_5mon_sent_n_o.csv"
-
-holder = ModelHolder(data_path, y_n)
-
-inputs = InputManager(data_path)
-inps = inputs.return_as_pd_df('ЕЦБ назвал главные риски европейской финансовой системы', 'Антон Козлов', 'Экономика')

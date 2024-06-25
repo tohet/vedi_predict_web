@@ -18,7 +18,7 @@ function App() {
     const [_pred, setPred] = useState(0)
     const [_label, setLabel] = useState('???')
     
-
+// a function to givwe title, authors and topics to the model
     const predict_views = async () => {
       const articleSubmission: Article = {
         title: _title,
@@ -47,7 +47,7 @@ function App() {
         return
     }
     }
-
+// a function to get prediction from model
     const catchPred = async () => {
       try{
       let pred_score = await axios.get("http://localhost:8000/api")

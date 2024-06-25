@@ -7,19 +7,17 @@ from pydantic import BaseModel
 
 from views_predct import ModelHolder, InputManager, PredScore
 
+# set a target variable
 y_n = "открытия материала"
+# choose dataset
 data_path = "ved_5mon_sent_n_o.csv"
 
-# ЗАМЕНИТЬ НА ЗАГРУЗКУ МОДЕЛИ
-
-
+# a model and iput interpreter
 holder = ModelHolder(data_path, y_n)
 inputs = InputManager(data_path)
-pred_score = PredScore(-1)
 
-# title = None
-# authors = None
-# topics = None
+# a varable to hold predictions and labels
+pred_score = PredScore(-1)
 
 app = FastAPI()
 
@@ -41,6 +39,7 @@ class Article(BaseModel):
     authors: Optional[str] = Form(None)
     topics: Optional[str] = Form(None)
 
+# receive data from react and make a prediction
 @app.post("/api")
 async def root(article: Article):
     inps = inputs.return_as_pd_df(article.title, article.authors, article.topics)
@@ -51,6 +50,7 @@ async def root(article: Article):
     print(pred_score.label)
     return {"prediction":pred}
 
+# give prediction data to react
 @app.get("/api")
 async def get_pred():
     return {"score":int(pred_score.score), "label":pred_score.label}
