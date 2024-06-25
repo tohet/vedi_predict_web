@@ -1,0 +1,40 @@
+#root {
+  max-width: 880px;
+  margin: auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.logo {
+  height: 17em;
+  width: -70em;
+  padding: 2rem;
+}
+
+.sub_title {
+  height: 2em;
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-size: 24px;
+}
+
+.instruct {
+  text-align:justify;
+  padding: 0.7em;
+}
+
+.num_score {
+  padding: 1em;
+  font-size: 20px;
+}
+
+.label_score {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.interp {
+  height: 10em;
+
+  padding: 1rem;
+}
