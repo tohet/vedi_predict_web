@@ -41,16 +41,14 @@ class Article(BaseModel):
 
 # receive data from react and make a prediction
 @app.post("/api")
-async def root(article: Article):
+def root(article: Article):
     inps = inputs.return_as_pd_df(article.title, article.authors, article.topics)
     pred = holder.predict(inps)[0]
 
-    print(pred)
     pred_score.update(pred)
-    print(pred_score.label)
     return {"prediction":pred}
 
 # give prediction data to react
 @app.get("/api")
-async def get_pred():
+def get_pred():
     return {"score":int(pred_score.score), "label":pred_score.label}
